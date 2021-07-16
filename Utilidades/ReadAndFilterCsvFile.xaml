@@ -1,15 +1,18 @@
 <Activity mc:Ignorable="sap sap2010" x:Class="ReadFilterCSV" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <x:Members>
     <x:Property Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
-    <x:Property Name="out_DtData" Type="OutArgument(sd:DataTable)" />
+    <x:Property Name="out_TransactionData" Type="OutArgument(sd:DataTable)" />
+    <x:Property Name="in_PathFileFilterData" Type="InArgument(x:String)" />
+    <x:Property Name="in_PathFileNoFilterData" Type="InArgument(x:String)" />
+    <x:Property Name="in_PathYesterdayData" Type="InArgument(x:String)" />
   </x:Members>
   <mva:VisualBasic.Settings>
     <x:Null />
   </mva:VisualBasic.Settings>
-  <sap:VirtualizedContainerService.HintSize>1313.33333333333,1273.33333333333</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>948,647</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>ReadFilterCSV_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
-    <scg:List x:TypeArguments="x:String" Capacity="58">
+    <scg:List x:TypeArguments="x:String" Capacity="32">
       <x:String>System.Activities</x:String>
       <x:String>System.Activities.Statements</x:String>
       <x:String>System.Activities.Expressions</x:String>
@@ -40,6 +43,8 @@
       <x:String>UiPath.CSV.Activities</x:String>
       <x:String>System.Activities.DynamicUpdate</x:String>
       <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.Reflection</x:String>
+      <x:String>System.Runtime.InteropServices</x:String>
     </scg:List>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
@@ -72,21 +77,23 @@
       <AssemblyReference>System.Memory</AssemblyReference>
       <AssemblyReference>UiPath.OCR.Activities.Design</AssemblyReference>
       <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="ReadFilterCSV" sap:VirtualizedContainerService.HintSize="664,1108.66666666667" sap2010:WorkflowViewState.IdRef="Sequence_1">
+  <Sequence DisplayName="ReadFilterCSV" sap:VirtualizedContainerService.HintSize="839,1500" sap2010:WorkflowViewState.IdRef="Sequence_1">
     <Sequence.Variables>
-      <Variable x:TypeArguments="x:Boolean" Name="vBooExistDoc" />
-      <Variable x:TypeArguments="sd:DataTable" Name="vDtOldData" />
-      <Variable x:TypeArguments="sd:DataTable" Name="vDtData" />
+      <Variable x:TypeArguments="x:Boolean" Name="ExistYesterdayFile" />
+      <Variable x:TypeArguments="sd:DataTable" Name="YesterdayData" />
+      <Variable x:TypeArguments="sd:DataTable" Name="TodayData" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
-        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+        <x:Boolean x:Key="IsPinned">False</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="622,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Trace" Message="[&quot;Looking fot the new codes.&quot;]" />
-    <ui:ReadCsvFile Encoding="{x:Null}" DataTable="[vDtData]" Delimitator="Comma" DisplayName="Read CSV" FilePath="[string.Format(in_Config(&quot;vStrPathToSaveCSV&quot;).ToString,system.DateTime.Now.ToString(&quot;dd-MM-yyyy&quot;))]" sap:VirtualizedContainerService.HintSize="622,156.666666666667" sap2010:WorkflowViewState.IdRef="ReadCsvFile_1">
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="797,91" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Trace" Message="[&quot;Looking fot the new codes.&quot;]" />
+    <ui:ReadCsvFile Encoding="{x:Null}" DataTable="[TodayData]" Delimitator="Comma" DisplayName="Read CSV" FilePath="[in_PathFileNoFilterData]" sap:VirtualizedContainerService.HintSize="797,152" sap2010:WorkflowViewState.IdRef="ReadCsvFile_1">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -94,15 +101,15 @@
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
     </ui:ReadCsvFile>
-    <Assign DisplayName="out_DtData" sap:VirtualizedContainerService.HintSize="622,62" sap2010:WorkflowViewState.IdRef="Assign_1">
+    <Assign DisplayName="out_DtData" sap:VirtualizedContainerService.HintSize="797,60" sap2010:WorkflowViewState.IdRef="Assign_1">
       <Assign.To>
-        <OutArgument x:TypeArguments="sd:DataTable">[vDtData]</OutArgument>
+        <OutArgument x:TypeArguments="sd:DataTable">[TodayData]</OutArgument>
       </Assign.To>
       <Assign.Value>
-        <InArgument x:TypeArguments="sd:DataTable">[vDtData.DefaultView.ToTable(False,"CBC. Loan #","Orig. Loan #")]</InArgument>
+        <InArgument x:TypeArguments="sd:DataTable">[TodayData.DefaultView.ToTable(False,"CBC. Loan #","Orig. Loan #")]</InArgument>
       </Assign.Value>
     </Assign>
-    <ui:PathExists DisplayName="Path Exists" Exists="[vBooExistDoc]" sap:VirtualizedContainerService.HintSize="622,90.6666666666667" sap2010:WorkflowViewState.IdRef="PathExists_1" Path="[string.Format(in_Config(&quot;vStrPathToSaveCSV&quot;).ToString,system.DateTime.Now.AddDays(-1).ToString(&quot;dd-MM-yyyy&quot;))]" PathType="File">
+    <ui:PathExists DisplayName="Path Exists" Exists="[ExistYesterdayFile]" sap:VirtualizedContainerService.HintSize="797,89" sap2010:WorkflowViewState.IdRef="PathExists_1" Path="[in_PathYesterdayData]" PathType="File">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -110,7 +117,7 @@
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
     </ui:PathExists>
-    <If Condition="[vBooExistDoc]" DisplayName="vBooExistDoc" sap:VirtualizedContainerService.HintSize="622,452.666666666667" sap2010:WorkflowViewState.IdRef="If_1">
+    <If Condition="[ExistYesterdayFile]" DisplayName="vBooExistDoc" sap:VirtualizedContainerService.HintSize="797,602" sap2010:WorkflowViewState.IdRef="If_1">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -118,50 +125,59 @@
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
       <If.Then>
-        <Sequence DisplayName="Merging tables" sap:VirtualizedContainerService.HintSize="200,69.3333333333333" sap2010:WorkflowViewState.IdRef="Sequence_2">
+        <Sequence DisplayName="Merging tables" sap:VirtualizedContainerService.HintSize="376,444" sap2010:WorkflowViewState.IdRef="Sequence_2">
           <sap:WorkflowViewStateService.ViewState>
             <scg:Dictionary x:TypeArguments="x:String, x:Object">
-              <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
               <x:Boolean x:Key="IsPinned">False</x:Boolean>
             </scg:Dictionary>
           </sap:WorkflowViewStateService.ViewState>
-          <ui:ReadCsvFile Encoding="{x:Null}" DataTable="[vDtOldData]" Delimitator="Comma" DisplayName="Read CSV" FilePath="[string.Format(in_Config(&quot;vStrPathToSaveCSV&quot;).ToString,system.DateTime.Now.AddDays(-1).ToString(&quot;dd-MM-yyyy&quot;))]" sap:VirtualizedContainerService.HintSize="334,156.666666666667" sap2010:WorkflowViewState.IdRef="ReadCsvFile_2" />
-          <Assign DisplayName="vDtOldData" sap:VirtualizedContainerService.HintSize="334,62" sap2010:WorkflowViewState.IdRef="Assign_2">
+          <ui:ReadCsvFile Encoding="{x:Null}" DataTable="[YesterdayData]" Delimitator="Comma" DisplayName="Read CSV" FilePath="[in_PathYesterdayData]" sap:VirtualizedContainerService.HintSize="334,152" sap2010:WorkflowViewState.IdRef="ReadCsvFile_2">
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                <x:Boolean x:Key="IsPinned">False</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+          </ui:ReadCsvFile>
+          <Assign DisplayName="YesterdayData" sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_2">
             <Assign.To>
-              <OutArgument x:TypeArguments="sd:DataTable">[vDtOldData]</OutArgument>
+              <OutArgument x:TypeArguments="sd:DataTable">[YesterdayData]</OutArgument>
             </Assign.To>
             <Assign.Value>
-              <InArgument x:TypeArguments="sd:DataTable">[vDtOldData.DefaultView.ToTable(False,"CBC. Loan #","Orig. Loan #")]</InArgument>
+              <InArgument x:TypeArguments="sd:DataTable">[YesterdayData.DefaultView.ToTable(False,"CBC. Loan #","Orig. Loan #")]</InArgument>
             </Assign.Value>
           </Assign>
-          <Assign DisplayName="out_DtData" sap:VirtualizedContainerService.HintSize="334,62" sap2010:WorkflowViewState.IdRef="Assign_3">
+          <Assign DisplayName="out_TransactionData" sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_3">
             <Assign.To>
-              <OutArgument x:TypeArguments="sd:DataTable">[out_DtData]</OutArgument>
+              <OutArgument x:TypeArguments="sd:DataTable">[out_TransactionData]</OutArgument>
             </Assign.To>
             <Assign.Value>
-              <InArgument x:TypeArguments="sd:DataTable">[vDtOldData.AsEnumerable.Except(vDtData.AsEnumerable, System.Data.DataRowComparer.Default).CopyToDataTable]</InArgument>
+              <InArgument x:TypeArguments="sd:DataTable">[TodayData.AsEnumerable.Except(YesterdayData.AsEnumerable, System.Data.DataRowComparer.Default).CopyToDataTable]</InArgument>
             </Assign.Value>
           </Assign>
         </Sequence>
       </If.Then>
       <If.Else>
-        <Sequence sap:VirtualizedContainerService.HintSize="376,288.666666666667" sap2010:WorkflowViewState.IdRef="Sequence_3">
+        <Sequence DisplayName="All data will be processed" sap:VirtualizedContainerService.HintSize="376,283" sap2010:WorkflowViewState.IdRef="Sequence_3">
           <sap:WorkflowViewStateService.ViewState>
             <scg:Dictionary x:TypeArguments="x:String, x:Object">
               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
             </scg:Dictionary>
           </sap:WorkflowViewStateService.ViewState>
-          <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Trace" Message="[&quot;There are no previous day CSV file, so all the loan rows will be processed.&quot;]" />
-          <Assign DisplayName="Toda la info será procesada. " sap:VirtualizedContainerService.HintSize="334,62" sap2010:WorkflowViewState.IdRef="Assign_4">
+          <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Trace" Message="[&quot;There are no previous day CSV file, so all the loan rows will be processed.&quot;]" />
+          <Assign DisplayName="Toda la info será procesada. " sap:VirtualizedContainerService.HintSize="334,60" sap2010:WorkflowViewState.IdRef="Assign_4">
             <Assign.To>
-              <OutArgument x:TypeArguments="sd:DataTable">[out_DtData]</OutArgument>
+              <OutArgument x:TypeArguments="sd:DataTable">[out_TransactionData]</OutArgument>
             </Assign.To>
             <Assign.Value>
-              <InArgument x:TypeArguments="sd:DataTable">[vDtData]</InArgument>
+              <InArgument x:TypeArguments="sd:DataTable">[TodayData]</InArgument>
             </Assign.Value>
           </Assign>
         </Sequence>
       </If.Else>
     </If>
+    <ui:AddDataColumn x:TypeArguments="x:String" AllowDBNull="{x:Null}" AutoIncrement="{x:Null}" Column="{x:Null}" DefaultValue="{x:Null}" MaxLength="{x:Null}" Unique="{x:Null}" ColumnName="Status" DataTable="[out_TransactionData]" DisplayName="Add Data Column" sap:VirtualizedContainerService.HintSize="797,22" sap2010:WorkflowViewState.IdRef="AddDataColumn`1_1" />
+    <ui:WriteCsvFile Encoding="{x:Null}" AddHeaders="True" DataTable="[out_TransactionData]" Delimitator="Comma" DisplayName="Write CSV" FilePath="[in_PathFileFilterData]" sap:VirtualizedContainerService.HintSize="797,152" sap2010:WorkflowViewState.IdRef="WriteCsvFile_1" />
   </Sequence>
 </Activity>
