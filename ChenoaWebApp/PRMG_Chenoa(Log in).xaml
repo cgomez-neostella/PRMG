@@ -6,7 +6,7 @@
     <x:Property Name="in_MailCredential" Type="InArgument(x:String)" />
     <x:Property Name="out_Browser" Type="OutArgument(ui:Browser)" />
   </x:Members>
-  <sap:VirtualizedContainerService.HintSize>1474,966</sap:VirtualizedContainerService.HintSize>
+  <sap:VirtualizedContainerService.HintSize>1474,1169</sap:VirtualizedContainerService.HintSize>
   <sap2010:WorkflowViewState.IdRef>ActivityBuilder_1</sap2010:WorkflowViewState.IdRef>
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="28">
@@ -77,12 +77,12 @@
       <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence DisplayName="Log In Process" sap:VirtualizedContainerService.HintSize="566,801" sap2010:WorkflowViewState.IdRef="Sequence_2">
+  <Sequence DisplayName="Log In Process" sap:VirtualizedContainerService.HintSize="879,1004" sap2010:WorkflowViewState.IdRef="Sequence_2">
     <Sequence.Variables>
-      <Variable x:TypeArguments="x:String" Name="vStrUserName" />
-      <Variable x:TypeArguments="ss:SecureString" Name="vSecStrPassWord" />
-      <Variable x:TypeArguments="ss:SecureString" Name="vStrPassMail" />
-      <Variable x:TypeArguments="x:String" Name="vStrUserMail" />
+      <Variable x:TypeArguments="x:String" Name="UserName" />
+      <Variable x:TypeArguments="ss:SecureString" Name="PassWord" />
+      <Variable x:TypeArguments="ss:SecureString" Name="PassMail" />
+      <Variable x:TypeArguments="x:String" Name="UserMail" />
     </Sequence.Variables>
     <sap:WorkflowViewStateService.ViewState>
       <scg:Dictionary x:TypeArguments="x:String, x:Object">
@@ -90,7 +90,7 @@
         <x:Boolean x:Key="IsPinned">False</x:Boolean>
       </scg:Dictionary>
     </sap:WorkflowViewStateService.ViewState>
-    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="524,51" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Trace" Message="[&quot;Starts log in Chenoa&quot;]">
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="837,51" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Trace" Message="[&quot;Starts log in Chenoa&quot;]">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsExpanded">False</x:Boolean>
@@ -98,7 +98,7 @@
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
     </ui:LogMessage>
-    <TryCatch DisplayName="Go to web site and write credentials" sap:VirtualizedContainerService.HintSize="524,527" sap2010:WorkflowViewState.IdRef="TryCatch_1">
+    <TryCatch DisplayName="Go to web site and write credentials" sap:VirtualizedContainerService.HintSize="837,730" sap2010:WorkflowViewState.IdRef="TryCatch_1">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -106,7 +106,7 @@
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
       <TryCatch.Try>
-        <ui:RetryScope DisplayName="Retry Scope" sap:VirtualizedContainerService.HintSize="200,51" sap2010:WorkflowViewState.IdRef="RetryScope_1" NumberOfRetries="3" RetryInterval="00:00:01">
+        <ui:RetryScope DisplayName="Retry Scope" sap:VirtualizedContainerService.HintSize="602,51" sap2010:WorkflowViewState.IdRef="RetryScope_1" NumberOfRetries="3" RetryInterval="00:00:01">
           <ui:RetryScope.ActivityBody>
             <ActivityAction>
               <ui:OpenBrowser CommunicationMethod="{x:Null}" Hidden="{x:Null}" NewSession="{x:Null}" Private="{x:Null}" BrowserType="Chrome" DisplayName="Open Browser" sap:VirtualizedContainerService.HintSize="560,774" sap2010:WorkflowViewState.IdRef="OpenBrowser_1" UiBrowser="[out_Browser]" Url="[in_ChenoaURL]">
@@ -126,7 +126,7 @@
                         </scg:Dictionary>
                       </sap:WorkflowViewStateService.ViewState>
                       <ui:MaximizeWindow Window="{x:Null}" DisplayName="Maximize Window" sap:VirtualizedContainerService.HintSize="484,22" sap2010:WorkflowViewState.IdRef="MaximizeWindow_1" />
-                      <ui:GetRobotCredential TimeoutMS="{x:Null}" AssetName="[in_MailCredential]" DisplayName="Get Credential" sap:VirtualizedContainerService.HintSize="484,79" sap2010:WorkflowViewState.IdRef="GetRobotCredential_5" Password="[vStrPassMail]" Username="[vStrUserMail]">
+                      <ui:GetRobotCredential TimeoutMS="{x:Null}" AssetName="[in_MailCredential]" DisplayName="Get Credential" sap:VirtualizedContainerService.HintSize="484,79" sap2010:WorkflowViewState.IdRef="GetRobotCredential_5" Password="[PassMail]" Username="[UserMail]">
                         <sap:WorkflowViewStateService.ViewState>
                           <scg:Dictionary x:TypeArguments="x:String, x:Object">
                             <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -168,7 +168,7 @@
                                 <x:Boolean x:Key="IsPinned">False</x:Boolean>
                               </scg:Dictionary>
                             </sap:WorkflowViewStateService.ViewState>
-                            <ui:GetRobotCredential TimeoutMS="{x:Null}" AssetName="[in_ChenoaCredential]" DisplayName="Get Credential" sap:VirtualizedContainerService.HintSize="284,79" sap2010:WorkflowViewState.IdRef="GetRobotCredential_4" Password="[vSecStrPassWord]" Username="[vStrUserName]">
+                            <ui:GetRobotCredential TimeoutMS="{x:Null}" AssetName="[in_ChenoaCredential]" DisplayName="Get Credential" sap:VirtualizedContainerService.HintSize="284,79" sap2010:WorkflowViewState.IdRef="GetRobotCredential_4" Password="[PassWord]" Username="[UserName]">
                               <sap:WorkflowViewStateService.ViewState>
                                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
                                   <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -176,7 +176,7 @@
                                 </scg:Dictionary>
                               </sap:WorkflowViewStateService.ViewState>
                             </ui:GetRobotCredential>
-                            <ui:TypeInto AlterIfDisabled="{x:Null}" ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" Activate="True" DisplayName="Type Into 'UserName'" EmptyField="True" sap:VirtualizedContainerService.HintSize="284,51" sap2010:WorkflowViewState.IdRef="TypeInto_1" SimulateType="True" Text="[vStrUserName]">
+                            <ui:TypeInto AlterIfDisabled="{x:Null}" ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" Activate="True" DisplayName="Type Into 'UserName'" EmptyField="True" sap:VirtualizedContainerService.HintSize="284,51" sap2010:WorkflowViewState.IdRef="TypeInto_1" SimulateType="True" Text="[UserName]">
                               <ui:TypeInto.Target>
                                 <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="d7a51ab5-bede-460c-a117-e29696d6a37d" InformativeScreenshot="81aeb4848874e20c293909f68bfe1e07" Selector="&lt;webctrl tag='INPUT' /&gt;">
                                   <ui:Target.TimeoutMS>
@@ -194,7 +194,7 @@
                                 </scg:Dictionary>
                               </sap:WorkflowViewStateService.ViewState>
                             </ui:TypeInto>
-                            <ui:TypeSecureText AlterIfDisabled="{x:Null}" ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" Activate="True" DisplayName="Type Secure Text 'PassWord'" EmptyField="True" sap:VirtualizedContainerService.HintSize="284,51" sap2010:WorkflowViewState.IdRef="TypeSecureText_1" SecureText="[vSecStrPassWord]" SimulateType="True">
+                            <ui:TypeSecureText AlterIfDisabled="{x:Null}" ClickBeforeTyping="{x:Null}" DelayBefore="{x:Null}" DelayBetweenKeys="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" Activate="True" DisplayName="Type Secure Text 'PassWord'" EmptyField="True" sap:VirtualizedContainerService.HintSize="284,51" sap2010:WorkflowViewState.IdRef="TypeSecureText_1" SecureText="[PassWord]" SimulateType="True">
                               <ui:TypeSecureText.Target>
                                 <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="617f3549-d6a8-4c67-9cc0-eca143431f2c" InformativeScreenshot="3d2893e65eadaf72b1ca1010e46d5c70" Selector="&lt;webctrl tag='INPUT' type='password' /&gt;">
                                   <ui:Target.TimeoutMS>
@@ -306,7 +306,7 @@
         </ui:RetryScope>
       </TryCatch.Try>
       <TryCatch.Catches>
-        <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="490,365" sap2010:WorkflowViewState.IdRef="Catch`1_2">
+        <Catch x:TypeArguments="s:Exception" sap:VirtualizedContainerService.HintSize="803,568" sap2010:WorkflowViewState.IdRef="Catch`1_2">
           <sap:WorkflowViewStateService.ViewState>
             <scg:Dictionary x:TypeArguments="x:String, x:Object">
               <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -317,7 +317,7 @@
             <ActivityAction.Argument>
               <DelegateInArgument x:TypeArguments="s:Exception" Name="exception" />
             </ActivityAction.Argument>
-            <If Condition="[exception.Message.Equals(&quot;Cannot access Investor Portal (Chenoa).&quot;)]" DisplayName="BussinesRuleException" sap:VirtualizedContainerService.HintSize="484,296" sap2010:WorkflowViewState.IdRef="If_11">
+            <If Condition="[exception.Message.Equals(&quot;Cannot access Investor Portal (Chenoa).&quot;)]" DisplayName="BussinesRuleException" sap:VirtualizedContainerService.HintSize="797,499" sap2010:WorkflowViewState.IdRef="If_11">
               <sap:WorkflowViewStateService.ViewState>
                 <scg:Dictionary x:TypeArguments="x:String, x:Object">
                   <x:Boolean x:Key="IsExpanded">True</x:Boolean>
@@ -325,42 +325,42 @@
                 </scg:Dictionary>
               </sap:WorkflowViewStateService.ViewState>
               <If.Then>
-                <Sequence sap2010:Annotation.AnnotationText="La pagina no carga correctamente. Se envía notificación de error a usuario. " DisplayName="Pagina no carga" sap:VirtualizedContainerService.HintSize="200,138" sap2010:WorkflowViewState.IdRef="Sequence_19">
+                <Sequence sap2010:Annotation.AnnotationText="La pagina no carga correctamente. Se envía notificación de error a usuario. " DisplayName="Pagina no carga" sap:VirtualizedContainerService.HintSize="376,341" sap2010:WorkflowViewState.IdRef="Sequence_19">
                   <sap:WorkflowViewStateService.ViewState>
                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                      <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                       <x:Boolean x:Key="IsPinned">False</x:Boolean>
                       <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
                     </scg:Dictionary>
                   </sap:WorkflowViewStateService.ViewState>
-                  <ui:SendMail Bcc="{x:Null}" Cc="{x:Null}" From="{x:Null}" MailMessage="{x:Null}" Name="{x:Null}" ReplyTo="{x:Null}" SecurePassword="{x:Null}" TimeoutMS="{x:Null}" Body="[in_Config(&quot;ChenoaMailBody1&quot;).ToString]" DisplayName="Send SMTP Mail Message" Email="[vStrUserMail]" EnableSSL="True" sap:VirtualizedContainerService.HintSize="200,51" sap2010:WorkflowViewState.IdRef="SendMail_9" IsBodyHtml="True" Password="[New system.net.NetworkCredential(String.Empty,vStrPassMail).Password]" Port="[cint(in_Config(&quot;vStrPortSend&quot;))]" SecureConnection="Auto" Server="[in_Config(&quot;vStrServer&quot;).ToString]" Subject="[in_Config(&quot;ChenoaMailSubject1&quot;).ToString]" To="[in_Config(&quot;ChenoaMailRecipients&quot;).ToString]">
+                  <ui:SendMail Bcc="{x:Null}" Cc="{x:Null}" From="{x:Null}" MailMessage="{x:Null}" Name="{x:Null}" ReplyTo="{x:Null}" SecurePassword="{x:Null}" TimeoutMS="{x:Null}" Body="[in_Config(&quot;ChenoaMailBody1&quot;).ToString]" DisplayName="Send SMTP Mail Message" Email="[UserMail]" EnableSSL="True" sap:VirtualizedContainerService.HintSize="334,145" sap2010:WorkflowViewState.IdRef="SendMail_9" IsBodyHtml="True" Password="[New system.net.NetworkCredential(String.Empty,PassMail).Password]" Port="[cint(in_Config(&quot;PortSend&quot;))]" SecureConnection="Auto" Server="[in_Config(&quot;Server&quot;).ToString]" Subject="[in_Config(&quot;ChenoaMailSubject1&quot;).ToString]" To="[in_Config(&quot;ChenoaMailRecipients&quot;).ToString]">
                     <ui:SendMail.Files>
                       <scg:List x:TypeArguments="InArgument(x:String)" Capacity="0" />
                     </ui:SendMail.Files>
                     <sap:WorkflowViewStateService.ViewState>
                       <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                        <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                         <x:Boolean x:Key="IsPinned">False</x:Boolean>
                       </scg:Dictionary>
                     </sap:WorkflowViewStateService.ViewState>
                   </ui:SendMail>
-                  <Throw Exception="[New system.Exception(&quot;After 3 times It wasnt posible to access Investor Portal (Chenoa).&quot;)]" sap:VirtualizedContainerService.HintSize="200,22" sap2010:WorkflowViewState.IdRef="Throw_15" />
+                  <Throw Exception="[New system.Exception(&quot;After 3 times It wasnt posible to access Investor Portal (Chenoa).&quot;)]" sap:VirtualizedContainerService.HintSize="334,22" sap2010:WorkflowViewState.IdRef="Throw_15" />
                 </Sequence>
               </If.Then>
               <If.Else>
-                <Sequence sap2010:Annotation.AnnotationText="Se envía correo cuando las credenciales son incorrectas o no se logra hacer log in en la pagina. " DisplayName="Credenciales incorrectas" sap:VirtualizedContainerService.HintSize="200,138" sap2010:WorkflowViewState.IdRef="Sequence_22">
+                <Sequence sap2010:Annotation.AnnotationText="Se envía correo cuando las credenciales son incorrectas o no se logra hacer log in en la pagina. " DisplayName="Credenciales incorrectas" sap:VirtualizedContainerService.HintSize="376,341" sap2010:WorkflowViewState.IdRef="Sequence_22">
                   <Sequence.Variables>
                     <Variable x:TypeArguments="ss:SecureString" Name="vStrPassMail" />
                     <Variable x:TypeArguments="x:String" Name="vStrUserMail" />
                   </Sequence.Variables>
                   <sap:WorkflowViewStateService.ViewState>
                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
-                      <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                       <x:Boolean x:Key="IsPinned">False</x:Boolean>
                       <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
                     </scg:Dictionary>
                   </sap:WorkflowViewStateService.ViewState>
-                  <ui:SendMail Bcc="{x:Null}" Cc="{x:Null}" From="{x:Null}" MailMessage="{x:Null}" Name="{x:Null}" ReplyTo="{x:Null}" SecurePassword="{x:Null}" TimeoutMS="{x:Null}" Body="[in_Config(&quot;ChenoaMailBody2&quot;).ToString]" DisplayName="Send SMTP Mail Message" Email="[vStrUserMail]" EnableSSL="True" sap:VirtualizedContainerService.HintSize="334,145" sap2010:WorkflowViewState.IdRef="SendMail_12" IsBodyHtml="True" Password="[New system.net.NetworkCredential(String.Empty,vStrPassMail).Password]" Port="[cint(in_Config(&quot;vStrPortSend&quot;))]" SecureConnection="Auto" Server="[in_Config(&quot;vStrServer&quot;).ToString]" Subject="[in_Config(&quot;ChenoaMailSubject2&quot;).ToString]" To="[in_Config(&quot;ChenoaMailRecipients&quot;).ToString]">
+                  <ui:SendMail Bcc="{x:Null}" Cc="{x:Null}" From="{x:Null}" MailMessage="{x:Null}" Name="{x:Null}" ReplyTo="{x:Null}" SecurePassword="{x:Null}" TimeoutMS="{x:Null}" Body="[in_Config(&quot;ChenoaMailBody2&quot;).ToString]" DisplayName="Send SMTP Mail Message" Email="[UserMail]" EnableSSL="True" sap:VirtualizedContainerService.HintSize="334,145" sap2010:WorkflowViewState.IdRef="SendMail_12" IsBodyHtml="True" Password="[New system.net.NetworkCredential(String.Empty,PassMail).Password]" Port="[cint(in_Config(&quot;PortSend&quot;))]" SecureConnection="Auto" Server="[in_Config(&quot;Server&quot;).ToString]" Subject="[in_Config(&quot;ChenoaMailSubject2&quot;).ToString]" To="[in_Config(&quot;ChenoaMailRecipients&quot;).ToString]">
                     <ui:SendMail.Files>
                       <scg:List x:TypeArguments="InArgument(x:String)" Capacity="0" />
                     </ui:SendMail.Files>
@@ -373,7 +373,7 @@
         </Catch>
       </TryCatch.Catches>
     </TryCatch>
-    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="524,51" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Trace" Message="[&quot;Finish Log In Chenoa.&quot;]">
+    <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="837,51" sap2010:WorkflowViewState.IdRef="LogMessage_2" Level="Trace" Message="[&quot;Finish Log In Chenoa.&quot;]">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsExpanded">False</x:Boolean>

@@ -4,6 +4,7 @@
   "main": "Main.xaml",
   "dependencies": {
     "Microsoft.Activities": "[1.0.1]",
+    "Neostella.EncompassAPI": "[1.0.19]",
     "UiPath.Excel.Activities": "[2.10.4]",
     "UiPath.Mail.Activities": "[1.10.5]",
     "UiPath.PDF.Activities": "[3.4.0]",
