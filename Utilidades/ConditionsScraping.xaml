@@ -356,9 +356,7 @@
                   <ui:SendMail Bcc="{x:Null}" Cc="{x:Null}" From="{x:Null}" MailMessage="{x:Null}" Name="{x:Null}" ReplyTo="{x:Null}" SecurePassword="{x:Null}" TimeoutMS="{x:Null}" Body="[string.Format(in_Config(&quot;ChenoaMailBody4&quot;).ToString,in_TransactionItem(0).ToString,in_Config(&quot;MaxConditions&quot;).ToString,InterData.AsEnumerable.Skip(cint(in_Config(&quot;MaxConditions&quot;))).CopyToDataTable.Rows.Count-cint(in_Config(&quot;MaxConditions&quot;)))]" DisplayName="Send SMTP Mail Message" Email="[UserMail]" EnableSSL="True" sap:VirtualizedContainerService.HintSize="334,145" sap2010:WorkflowViewState.IdRef="SendMail_3" IsBodyHtml="True" Password="[New system.net.NetworkCredential(String.Empty,PassMail).Password]" Port="[cint(in_Config(&quot;PortSend&quot;))]" SecureConnection="Auto" Server="[in_Config(&quot;Server&quot;).ToString]" Subject="[string.Format(in_Config(&quot;ChenoaMailSubject4&quot;).ToString,cint(in_Config(&quot;MaxConditions&quot;)),in_TransactionItem(0).ToString)]" To="[in_Config(&quot;ChenoaMailRecipients&quot;).ToString]">
                     <ui:SendMail.Files>
                       <scg:List x:TypeArguments="InArgument(x:String)" Capacity="4">
-                        <InArgument x:TypeArguments="x:String">
-                          <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="String.Format(in_Config(&quot;vStrPathToSaveRemaining&quot;).ToString,system.DateTime.Now.ToString(&quot;yyyy-MM-dd&quot;)+in_Config(&quot;vStrRemainingName&quot;).ToString+Loan)" />
-                        </InArgument>
+                        <InArgument x:TypeArguments="x:String">[String.Format(in_Config("vStrPathToSaveRemaining").ToString,system.DateTime.Now.ToString("yyyy-MM-dd")+in_Config("vStrRemainingName").ToString+Loan)]</InArgument>
                       </scg:List>
                     </ui:SendMail.Files>
                   </ui:SendMail>
@@ -392,7 +390,7 @@
                   </ui:AssignOperation>
                   <ui:AssignOperation sap2010:WorkflowViewState.IdRef="AssignOperation_2">
                     <ui:AssignOperation.To>
-                      <OutArgument x:TypeArguments="x:Object">[out_DataDescriptions(1)(1)]</OutArgument>
+                      <OutArgument x:TypeArguments="x:Object">[out_DataDescriptions(0)(1)]</OutArgument>
                     </ui:AssignOperation.To>
                     <ui:AssignOperation.Value>
                       <InArgument x:TypeArguments="x:Object">[in_TransactionItem(1)]</InArgument>

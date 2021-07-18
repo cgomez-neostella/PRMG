@@ -223,7 +223,7 @@
               <InArgument x:TypeArguments="x:String">[out_TransactionItem(1).ToString]</InArgument>
             </Assign.Value>
           </Assign>
-          <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Trace" Message="[&quot;Start process for CBC. Loan: &quot;+out_TransactionField1 +&quot; and Orig. Loan #: &quot; +out_TransactionField2]" />
+          <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="334,91" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Start process for CBC. Loan: &quot;+out_TransactionField1 +&quot; and Orig. Loan #: &quot; +out_TransactionField2]" />
         </Sequence>
       </If.Then>
       <If.Else>
